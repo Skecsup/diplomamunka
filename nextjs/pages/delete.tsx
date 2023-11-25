@@ -10,7 +10,7 @@ const Delete = () => {
   return (
     <div>
       Delete
-      <label className="mr-2">ID:</label>
+      <label className="mr-4">ID:</label>
       <input
         type="number"
         min={1}
