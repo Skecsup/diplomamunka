@@ -14,18 +14,16 @@ export class Order {
   totalPrice: number;
 
   @Prop()
-  products: [
-    {
-      product: {
-        type: mongoose.Schema.Types.ObjectId;
-        ref: 'Product';
-      };
-      quantity: {
-        type: number;
-        default: 0;
-      };
-    },
-  ];
+  products: {
+    product: {
+      type: mongoose.Schema.Types.ObjectId;
+      ref: 'Product';
+    };
+    quantity: {
+      type: number;
+      default: 0;
+    };
+  }[];
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);

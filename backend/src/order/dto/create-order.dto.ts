@@ -5,26 +5,35 @@ import {
   Min,
   ValidateNested,
   IsArray,
+  IsMongoId,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { CreateCustomerDto } from 'src/customer/dto/create-customer.dto';
-import { CreateProductDto } from 'src/product/dto/create-product.dto';
+import { ObjectId } from 'mongoose';
 
 class OrderEntry {
-  @ValidateNested()
-  @Type(() => CreateProductDto)
-  product: CreateProductDto;
+  @IsNotEmpty()
+  @IsMongoId()
+  readonly product: {
+    type: ObjectId;
+    ref: 'Product';
+  };
 
   @IsNotEmpty()
   @IsNumber()
   @Min(0)
-  quantity: number;
+  readonly quantity: {
+    type: number;
+    default: 0;
+  };
 }
 
 export class CreateOrderDto {
-  @ValidateNested()
-  @Type(() => CreateCustomerDto)
-  readonly owner: CreateCustomerDto;
+  @IsNotEmpty()
+  @IsMongoId()
+  readonly owner: {
+    type: ObjectId;
+    ref: 'Customer';
+  };
 
   @IsNotEmpty()
   @IsNumber()

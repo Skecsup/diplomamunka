@@ -1,18 +1,47 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { OrderService } from './order.service';
-import { CreateOrderDto } from './dto/create-order.dto'; // A CreateOrderDto-t a későbbiekben hozzuk majd létre
+import { Order } from './schemas/order.schema';
+import { CreateOrderDto } from './dto/create-order.dto';
+import { Query as ExpressQuery } from 'express-serve-static-core';
 
 @Controller('orders')
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
   @Get()
-  findAll() {
-    return this.orderService.findAll();
+  async getAllOrders(@Query() query: ExpressQuery): Promise<Order[]> {
+    return this.orderService.findAll(query);
   }
 
   @Post()
-  create(@Body() createOrderDto: CreateOrderDto) {
-    return this.orderService.create(createOrderDto);
+  async createOrder(
+    @Body()
+    order: CreateOrderDto,
+  ): Promise<Order> {
+    return this.orderService.create(order);
+  }
+
+  @Get(':id')
+  async getOrder(
+    @Param('id')
+    id: string,
+  ): Promise<Order> {
+    return this.orderService.findById(id);
+  }
+
+  @Delete(':id')
+  async deleteOrder(
+    @Param('id')
+    id: string,
+  ): Promise<Order> {
+    return this.orderService.deleteById(id);
   }
 }
