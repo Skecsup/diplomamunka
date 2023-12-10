@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Cart from "../components/Cart";
-
+import { useRouter } from "next/navigation";
 const Get = () => {
   const [customers, setCustomers] = useState<any[]>([]);
   const [products, setProducts] = useState<any[]>([]);
@@ -10,7 +10,7 @@ const Get = () => {
   const [isCartVisible, setIsCartVisible] = useState(false);
   const [currentUserId, setCurrentUserId] = useState("");
   const [currentUser, setcurrentUser] = useState<any>();
-
+  const router = useRouter();
   useEffect(() => {
     const getCurrentUser = async () => {
       const res = await fetch(
@@ -90,6 +90,12 @@ const Get = () => {
         className="border border-black p-2"
       >
         Cart
+      </button>
+      <button
+        onClick={() => router.push("/get-orders")}
+        className="border border-black p-2 ml-2"
+      >
+        go to orders
       </button>
       {isCartVisible && (
         <Cart
