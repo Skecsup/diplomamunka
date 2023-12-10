@@ -75,7 +75,7 @@ const GetOrders = () => {
                   key={`${orderIndex}-${itemIndex}`}
                   className="flex flex-row items-center"
                 >
-                  <div className="border border-black p-2 w-32">
+                  <div className="border-2 border-black p-2 w-32">
                     <h1>{item.productDetails.title}</h1>
                     <h1>{item.productDetails.price}</h1>
                     <Image
