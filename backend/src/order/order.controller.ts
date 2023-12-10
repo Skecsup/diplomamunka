@@ -37,6 +37,13 @@ export class OrderController {
     return this.orderService.findById(id);
   }
 
+  @Get('/customer/:customerId')
+  async getOrdersByCustomer(
+    @Param('customerId') customerId: string,
+  ): Promise<Order[]> {
+    return this.orderService.findOrdersByCustomer(customerId);
+  }
+
   @Delete(':id')
   async deleteOrder(
     @Param('id')

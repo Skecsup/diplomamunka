@@ -39,6 +39,10 @@ export class OrderService {
     }
     return order;
   }
+
+  async findOrdersByCustomer(customerId: string): Promise<Order[]> {
+    return this.orderModel.find({ owner: customerId }).exec();
+  }
   async deleteById(id: string): Promise<Order> {
     return await this.orderModel.findByIdAndDelete(id);
   }
